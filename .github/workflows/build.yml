@@ -31,10 +31,8 @@ jobs:
     - run: npm ci
     - run: npm run docs:build
     - name: Deploy
-      uses: JamesIves/github-pages-deploy-action@4.1.6
+      uses: JamesIves/github-pages-deploy-action@v4
       with:
-        # 供用户访问的github access_token 下面的变量是在准备阶段自定义的变量
-        access_token: ${{ secrets.access_token }} 
         # 发布到指定分支
         branch: gh-pages
         # 指定发布的打包后的文件
