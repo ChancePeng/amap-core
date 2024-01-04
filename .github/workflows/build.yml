@@ -31,7 +31,11 @@ jobs:
     - run: npm ci
     - run: npm run docs:build
     - name: Deploy
-      uses: peaceiris/actions-gh-pages@v3
+      uses: JamesIves/github-pages-deploy-action@4.1.6
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./docs-dist
+        # 供用户访问的github access_token 下面的变量是在准备阶段自定义的变量
+        access_token: ${{ secrets.access_token }} 
+        # 发布到指定分支
+        branch: gh-pages
+        # 指定发布的打包后的文件
+        folder: ./docs-dist
