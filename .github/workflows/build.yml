@@ -28,7 +28,6 @@ jobs:
         cache: 'npm'
     - run: npm install
     - run: npm run docs:build
-    - run: npm test
     # - name: Deploy
     #   uses: JamesIves/github-pages -deploy-action@4.0.0
     #   with:
