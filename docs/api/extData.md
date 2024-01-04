@@ -22,8 +22,8 @@ key(`string`): 数据key
 map.getExtData(key,value)
 ```
 
-参数：
-key(`string`): 数据key
+参数：   
+key(`string`): 数据key   
 value(`any`): 数据
 
 

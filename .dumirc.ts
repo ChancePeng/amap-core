@@ -5,7 +5,10 @@ export default defineConfig({
   themeConfig: {
     name: 'core',
     footer: 'power by change',
-    logo: '/logo.png',
+    logo: '/amap-core/logo.png',
   },
-  links: [{ href: '/logo.png', rel: 'shortcut icon' }],
+  links: [{ href: '/amap-core/logo.png', rel: 'shortcut icon' }],
+  publicPath: '/amap-core/',
+  base:'/amap-core',
+  cssPublicPath:'/amap-core'
 });

@@ -67,7 +67,7 @@ map.get(key)
 ```
 参数：
 
-key {`string`}：遮罩id
+key (`string`)：遮罩id
 
 ## remove
 移除遮罩

@@ -52,11 +52,11 @@ new AMap.OverlayGroup(overlays)
 
 返回的实例，具有`AMap.OverlayGroup`的所有特性
 
-但包含已下操作方法：
+还包含以下实例方法：
 
 ### destroy
 > 销毁 `overlays`   
-> 此方法会销毁创建额所有`overlays`
+> 此方法会销毁创建的所有`overlays`
 
 ### setTheme
 > 设置 `overlays` 主题 
