@@ -30,8 +30,8 @@ jobs:
         cache: 'yarn'
     - run: yarn
     - run: yarn docs:build
-    # - name: Deploy
-    #   uses: JamesIves/github-pages-deploy-action@4.0.0
-    #   with:
-    #     branch: build
-    #     folder: docs_dist
+    - name: Deploy
+      uses: JamesIves/github-pages-deploy-action@4.0.0
+      with:
+        branch: build
+        folder: docs_dist
