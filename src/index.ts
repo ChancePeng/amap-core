@@ -175,7 +175,7 @@ class MapStore {
       setFitView() {
         setFitView(this.getOverlays())
       }
-      findOverLays(callback: (cover: CoverInstance, index?: number) => boolean) {
+      findOverlays(callback: (cover: CoverInstance, index?: number) => boolean) {
         const overlays = this.getOverlays();
         const result = createOverlayGroup([]);
         const filter = createOverlayGroup([]);

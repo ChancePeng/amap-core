@@ -47,7 +47,7 @@ export interface OverlayGroup extends AMap.OverlayGroup {
   destroy: () => void;
   setTheme: (key: string) => void;
   setFitView: () => void;
-  findOverLays: (callback: (cover: CoverInstance, index?: number) => boolean) => [OverlayGroup, OverlayGroup]
+  findOverlays: (callback: (cover: CoverInstance, index?: number) => boolean) => [OverlayGroup, OverlayGroup]
 }
 
 export interface LayerGroup extends AMap.LayerGroup {

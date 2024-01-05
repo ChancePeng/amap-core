@@ -1,5 +1,5 @@
 /// <reference types="amap-js-api" />
-import { MapInstance } from './typing';
+import type { MapInstance } from './typing';
 declare class MapStore {
     private covers;
     private themes;
@@ -22,7 +22,7 @@ declare class MapStore {
     private setExtData;
     private clearExtData;
     private setFitView;
-    private createOverLayGroup;
+    private createOverlayGroup;
     private createLayerGroup;
     private getGroup;
     private removeGroup;
