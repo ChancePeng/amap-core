@@ -1,5 +1,14 @@
 import { v4 as uuidv4 } from 'uuid'
-import { MapInstance, RecordType, Context, CoverInstance, LayerGroup } from './typing'
+import type { 
+  MapInstance, 
+  RecordType, 
+  Context,
+  CoverType, 
+  LayerGroup,
+  CoverInterface, 
+  CoverInstance,
+  CoverOptions 
+} from './typing'
 
 class MapStore {
   private covers: RecordType<CoverInstance>;
@@ -39,7 +48,7 @@ class MapStore {
       setExtData: this.setExtData,
       clearExtData: this.clearExtData,
       createLayerGroup: this.createLayerGroup,
-      createOverLayGroup: this.createOverLayGroup,
+      createOverlayGroup: this.createOverlayGroup,
       getGroup: this.getGroup,
       removeGroup: this.removeGroup,
     }
@@ -52,7 +61,7 @@ class MapStore {
     return this.map
   }
 
-  private create: MapInstance['create'] = (Constructor, opts) => {
+  private create = <T extends CoverType, P = RecordType>(Constructor:new (opts?: RecordType) => T, opts?:CoverOptions<P>) => {
     const { id = uuidv4(), theme, ...fields } = opts || {};
     const style = this.getTheme(theme);
     const covers = this.covers;
@@ -78,7 +87,7 @@ class MapStore {
       ...fields
     });
     this.covers[id] = cover as CoverInstance;
-    return cover as CoverInstance;
+    return cover as CoverInterface<T>;
   }
 
   private add: MapInstance['add'] = (Constructor, opts) => {
@@ -87,8 +96,8 @@ class MapStore {
     return cover;
   }
 
-  private get = <T extends CoverInstance>(key: string) => {
-    return this.covers[key] as (T | undefined);
+  private get:MapInstance['get'] = (key: string) => {
+    return this.covers[key] as any
   }
 
 
@@ -146,11 +155,11 @@ class MapStore {
     }
   }
 
-  private createOverLayGroup: MapInstance['createOverLayGroup'] = (overlays, opts) => {
+  private createOverlayGroup: MapInstance['createOverlayGroup'] = (overlays, opts) => {
     const { id } = opts || {};
     const remove = this.remove;
     const setFitView = this.setFitView;
-    const createOverLayGroup = this.createOverLayGroup;
+    const createOverlayGroup = this.createOverlayGroup;
     class CoverGroup extends AMap.OverlayGroup {
       destroy() {
         this.getOverlays().forEach((cover: CoverInstance) => {
@@ -168,8 +177,8 @@ class MapStore {
       }
       findOverLays(callback: (cover: CoverInstance, index?: number) => boolean) {
         const overlays = this.getOverlays();
-        const result = createOverLayGroup([]);
-        const filter = createOverLayGroup([]);
+        const result = createOverlayGroup([]);
+        const filter = createOverlayGroup([]);
         overlays.forEach((cover: CoverInstance, index: number) => {
           const bool = callback(cover, index);
           if (bool) {
@@ -251,3 +260,6 @@ class MapStore {
 export default MapStore;
 
 export * from './typing'
+
+
+

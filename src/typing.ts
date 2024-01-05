@@ -2,26 +2,42 @@ export type CoverType = AMap.Overlay | AMap.Layer | AMap.VectorOverlay | AMap.Ov
 
 export type RecordType<T = any> = Record<string, T>;
 
+/**
+ * Context Types
+ */
 export interface Context {
   map?: AMap.Map
 }
 
-interface CoverOption {
+/**
+ * Cover Types
+ */
+
+interface CoverStoreOptions {
   id?: string;
   theme?: string;
 }
 
-type CoverProps<T = any> = CoverOption & T;
+export type CoverOptions<T = any> = CoverStoreOptions & T;
 
-type Cover = CoverType & {
+export type CoverStoreInstance = {
   destroy: () => void;
   setTheme: (key: string) => void;
   id: string;
 }
 
-export type CoverInstance = Cover;
+export type CoverInterface<T extends CoverType> = T & CoverStoreInstance;
 
 
+
+
+export type CoverInstance = CoverType & CoverStoreInstance;
+
+
+
+/**
+ * Group Types
+ */
 export interface GroupOptions {
   id?: string,
 }
@@ -31,14 +47,14 @@ export interface OverlayGroup extends AMap.OverlayGroup {
   destroy: () => void;
   setTheme: (key: string) => void;
   setFitView: () => void;
-  findOverLays: (callback: (cover: Cover, index?: number) => boolean) => [OverlayGroup, OverlayGroup]
+  findOverLays: (callback: (cover: CoverInstance, index?: number) => boolean) => [OverlayGroup, OverlayGroup]
 }
 
 export interface LayerGroup extends AMap.LayerGroup {
   destroy: () => void;
   setTheme: (key: string) => void;
   setFitView: () => void;
-  findLayers: (callback: (cover: Cover, index?: number) => boolean) => [LayerGroup, LayerGroup]
+  findLayers: (callback: (cover: CoverInstance, index?: number) => boolean) => [LayerGroup, LayerGroup]
 }
 
 
@@ -61,14 +77,14 @@ export interface MapInstance {
    * @param opts 遮罩参数
    * @returns {Cover} 封装后的遮罩
    */
-  create: <T extends CoverType, P = any>(Constructor: new (opts?: RecordType) => T, opts?: CoverProps<P>) => Cover;
+  create: <T extends CoverType, P = RecordType>(Constructor: new (opts?: RecordType) => T, opts?: CoverOptions<P>) => CoverInterface<T>;
   /**
    * 创建遮罩并添加到地图上
    * @param Constructor 遮罩构造器
    * @param opts  遮罩参数
    * @returns {Cover} 封装后的遮罩
    */
-  add: <T extends CoverType, P = any>(Constructor: new (opts?: RecordType) => T, opts?: CoverProps<P>) => Cover;
+  add: <T extends CoverType, P = RecordType>(Constructor: new (opts?: RecordType) => T, opts?: CoverOptions<P>) => CoverInterface<T>;
   /**
    * 移除遮罩（并销毁）在地图上将消失
    * @param key 遮罩的key
@@ -79,7 +95,7 @@ export interface MapInstance {
    * @param key 遮罩的key
    * @returns 
    */
-  get: <T extends Cover> (key: string) => T | undefined;
+  get: <T extends CoverType> (key: string) => CoverInterface<T> | undefined;
   /**
    * 居中遮罩
    * @param {string | AMap.Overlay | AMap.Layer | AMap.Layer[]}key 遮罩的key 或者是
@@ -127,7 +143,7 @@ export interface MapInstance {
    * @param opts 
    * @returns 
    */
-  createOverLayGroup: <T extends (AMap.VectorOverlay | AMap.OverlayDOM) >(overlays: T[], opts?: GroupOptions) => OverlayGroup;
+  createOverlayGroup: <T extends (AMap.VectorOverlay | AMap.OverlayDOM) >(overlays: T[], opts?: GroupOptions) => OverlayGroup;
   /**
    * 创建遮罩分组
    * @param layers 
