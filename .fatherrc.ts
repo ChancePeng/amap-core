@@ -9,4 +9,9 @@ export default defineConfig({
     },
     sourcemap: true,
   },
+  umd: {
+    entry: './src/index',
+    output: 'dist',
+    name: 'MapStore',
+  }
 });
